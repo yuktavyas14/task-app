@@ -19,7 +19,7 @@ type Filter = 'all' | 'active' | 'done';
 })
 export class App implements OnInit {
   private http = inject(HttpClient);
-  api = 'http://localhost:8080/api/tasks';
+  api = 'https://task-app-api-j07t.onrender.com/api/tasks';
 
   tasks: Task[] = [];
   newTitle = '';
