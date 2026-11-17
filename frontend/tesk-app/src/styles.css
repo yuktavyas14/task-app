@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg: #eef1f6;
+  --card: #ffffff;
+  --fg: #1b2333;
+  --muted: #5d6779;
+  --line: #dde2eb;
+  --accent: #2f5bea;
+  --accent-soft: #e3e9fd;
+  --on-accent: #ffffff;
+  --done: #1f9d6b;
+  --danger: #c8433a;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1420;
+    --card: #171e2d;
+    --fg: #e8ecf4;
+    --muted: #98a2b6;
+    --line: #2a3347;
+    --accent: #7b9bff;
+    --accent-soft: #1f2a48;
+    --on-accent: #0f1420;
+    --done: #45c993;
+    --danger: #f07a70;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}

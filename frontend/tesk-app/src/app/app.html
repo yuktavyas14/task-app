@@ -1,0 +1,68 @@
+<main class="page">
+  <header class="head">
+    <span class="date">{{ today }}</span>
+    <h1>My Tasks</h1>
+  </header>
+
+  <section class="card">
+    <div class="progress">
+      <div class="progress-row">
+        <span>{{ percent }}% complete</span>
+        <span>{{ doneCount }} of {{ tasks.length }} done</span>
+      </div>
+      <div class="bar"><span [style.width.%]="percent"></span></div>
+    </div>
+
+    <form class="add-form" (ngSubmit)="add()">
+      <input id="new-task" name="newTitle" [(ngModel)]="newTitle"
+             placeholder="What do you need to do?" autocomplete="off" aria-label="New task">
+      <button type="submit" class="btn-add" [disabled]="!newTitle.trim()">Add task</button>
+    </form>
+
+    <div class="tabs" role="group" aria-label="Filter tasks">
+      <button type="button" [class.active]="filter === 'all'" (click)="filter = 'all'">
+        All <span class="count">{{ tasks.length }}</span>
+      </button>
+      <button type="button" [class.active]="filter === 'active'" (click)="filter = 'active'">
+        To do <span class="count">{{ activeCount }}</span>
+      </button>
+      <button type="button" [class.active]="filter === 'done'" (click)="filter = 'done'">
+        Done <span class="count">{{ doneCount }}</span>
+      </button>
+    </div>
+
+    @if (loading) {
+      <p class="state">Loading tasks…</p>
+    } @else if (error) {
+      <p class="state error">{{ error }}</p>
+    } @else {
+      <ul class="list">
+        @for (t of visibleTasks; track t.id) {
+          <li [class.done]="t.done">
+            <label class="check">
+              <input type="checkbox" [checked]="t.done" (change)="toggle(t)">
+              <span class="box"></span>
+            </label>
+            <span class="title">{{ t.title }}</span>
+            <button type="button" class="btn-del" (click)="remove(t)" [attr.aria-label]="'Delete ' + t.title">
+              Delete
+            </button>
+          </li>
+        } @empty {
+          <li class="state">
+            @if (filter === 'done') { No finished tasks yet. }
+            @else if (filter === 'active') { All caught up. }
+            @else { No tasks yet. Add your first one above. }
+          </li>
+        }
+      </ul>
+    }
+
+    <footer class="foot">
+      <span>{{ activeCount }} left to do</span>
+      <button type="button" class="btn-link" (click)="clearDone()" [disabled]="!doneCount">
+        Clear done tasks
+      </button>
+    </footer>
+  </section>
+</main>
